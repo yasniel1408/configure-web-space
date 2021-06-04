@@ -28,18 +28,17 @@ export const CollectInformation = () => {
     },
     onChange: (info) => {
       if (info.file.status !== "uploading") {
-        console.log(info.file, info.fileList);
+        // console.log(info.file, info.fileList);
       }
       if (info.file.status === "done") {
-        console.log(info.file.originFileObj);
         const file = info.file.originFileObj;
         if (file) {
           const reader = new FileReader();
           const { current } = uploadedImage;
           current.file = file;
-          // reader.onload = (e) => {
-          //   current.src = e.target.result;
-          // };
+          reader.onload = (e) => {
+            current.src = e.target.result;
+          };
           reader.readAsDataURL(file);
           // reader.onprogress = (e) => {
           //   console.log(e.total, e.loaded);
@@ -64,6 +63,7 @@ export const CollectInformation = () => {
         body: file,
       })
       .then(res => res.json())
+      .then(({ thumbnail }) =>console(thumbnail))
       .then(({ thumbnail }) => setAvatar(thumbnail));
     },
   };
