@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Form, Input, Button, Radio, Upload, message } from "antd";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import "antd/dist/antd.css";
@@ -11,6 +11,11 @@ export const CollectInformation = () => {
   const [form] = Form.useForm();
   const [requiredMark, setRequiredMarkType] = useState("optional");
 
+  const uploadedImage = useRef(null);
+  const imageUploader = useRef(null);
+
+  const [avatar, setAvatar] = useState();
+
   const onRequiredTypeChange = ({ requiredMarkValue }) => {
     setRequiredMarkType(requiredMarkValue);
   };
@@ -21,20 +26,50 @@ export const CollectInformation = () => {
     headers: {
       authorization: "authorization-text",
     },
-    onChange(info) {
+    onChange: (info) => {
       if (info.file.status !== "uploading") {
         console.log(info.file, info.fileList);
       }
       if (info.file.status === "done") {
+        console.log(info.file.originFileObj);
+        const file = info.file.originFileObj;
+        if (file) {
+          const reader = new FileReader();
+          const { current } = uploadedImage;
+          current.file = file;
+          // reader.onload = (e) => {
+          //   current.src = e.target.result;
+          // };
+          reader.readAsDataURL(file);
+          // reader.onprogress = (e) => {
+          //   console.log(e.total, e.loaded);
+          // };
+        }
         message.success(`${info.file.name} file uploaded successfully`);
       } else if (info.file.status === "error") {
         message.error(`${info.file.name} file upload failed.`);
       }
     },
+    beforeUpload: (file) => {
+      console.log(file);
+      if (file.type !== "image/png") {
+        message.error(`${file.name} is not a png file`);
+      }
+      return file.type === "image/png" ? true : Upload.LIST_IGNORE;
+    },
+    previewFile(file) {
+      console.log('Your upload file:', file);
+      return fetch('https://next.json-generator.com/api/json/get/4ytyBoLK8', {
+        method: 'POST',
+        body: file,
+      })
+      .then(res => res.json())
+      .then(({ thumbnail }) => setAvatar(thumbnail));
+    },
   };
 
   return (
-    <div className="contentCollectInformation flex ml-10 flex-col mt-10">
+    <div className="contentCollectInformation flex ml-24 flex-col mt-10">
       <div>
         <h1 className="font-bold text-lg">Configuración</h1>
         <Form
@@ -45,19 +80,25 @@ export const CollectInformation = () => {
           }}
           onValuesChange={onRequiredTypeChange}
           requiredMark={requiredMark}
+          encType="multipart/form-data"
         >
           <div>
             <label className="font-bold">Logo del espacio</label>
             <Content className="mt-2">
               <Avatar
-                icon={""}
+                icon={!avatar ? "" : <img src={avatar} ref={uploadedImage} />}
                 style={{ fontSize: 35 }}
                 className="avatar"
                 size="large"
               >
                 B
               </Avatar>
-              <Upload {...props} className="ml-3">
+              <Upload
+                accept="image/*"
+                {...props}
+                className="ml-3"
+                ref={imageUploader}
+              >
                 <Button className="btn-upload-image" icon={<UploadOutlined />}>
                   Subir logo
                 </Button>
@@ -107,17 +148,19 @@ export const CollectInformation = () => {
             </div>
           </Content>
 
-          <h4 className="font-bold">
-            ¿Cuántas personas trabajarán contigo, incluyéndote a ti?
-          </h4>
-          <Radio.Group defaultValue="a">
-            <Radio.Button value="a">Sólo yo</Radio.Button>
-            <Radio.Button value="b">2-10</Radio.Button>
-            <Radio.Button value="c">11-25</Radio.Button>
-            <Radio.Button value="d">26-50</Radio.Button>
-            <Radio.Button value="e">51-100</Radio.Button>
-            <Radio.Button value="f">500+</Radio.Button>
-          </Radio.Group>
+          <div className="numeroPersonas">
+            <h4 className="font-bold">
+              ¿Cuántas personas trabajarán contigo, incluyéndote a ti?
+            </h4>
+            <Radio.Group defaultValue="a">
+              <Radio.Button value="a">Sólo yo</Radio.Button>
+              <Radio.Button value="b">2-10</Radio.Button>
+              <Radio.Button value="c">11-25</Radio.Button>
+              <Radio.Button value="d">26-50</Radio.Button>
+              <Radio.Button value="e">51-100</Radio.Button>
+              <Radio.Button value="f">500+</Radio.Button>
+            </Radio.Group>
+          </div>
 
           <Content className="flex">
             <div className="mr-2 mt-0">
@@ -134,9 +177,21 @@ export const CollectInformation = () => {
             </div>
           </Content>
 
-          <h4 className="font-bold mt-2">
-            Color del tema
-          </h4>
+          <div className="colorTema">
+            <h4 className="font-bold mt-2">Color del tema</h4>
+            <Radio.Group defaultValue="j">
+              <Radio.Button value="a"></Radio.Button>
+              <Radio.Button value="b"></Radio.Button>
+              <Radio.Button value="c"></Radio.Button>
+              <Radio.Button value="d"></Radio.Button>
+              <Radio.Button value="e"></Radio.Button>
+              <Radio.Button value="f"></Radio.Button>
+              <Radio.Button value="g"></Radio.Button>
+              <Radio.Button value="h"></Radio.Button>
+              <Radio.Button value="i"></Radio.Button>
+              <Radio.Button value="j"></Radio.Button>
+            </Radio.Group>
+          </div>
 
           <Form.Item>
             <Button type="primary">Submit</Button>

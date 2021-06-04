@@ -51,18 +51,29 @@
     z-index: 9;
   }
 
-  .ant-radio-group {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
+  .numeroPersonas{
+    .ant-radio-group {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      .ant-radio-button-wrapper {
+        width: 85px;
+        height: 46px;
+        border-radius: 5px;
+        text-align: center;
+        padding-top: 5px;
+      }
+    }
   }
+  
+  .colorTema{
+    .ant-radio-group{
+      .ant-radio-button-wrapper{
+        .ant-radio-button{
 
-  .ant-radio-button-wrapper {
-    width: 85px;
-    height: 46px;
-    border-radius: 5px;
-    text-align: center;
-    padding-top: 5px;
+        }
+      }
+    }
   }
 
 }
