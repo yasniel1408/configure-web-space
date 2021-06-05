@@ -1,5 +1,14 @@
 .contentCollectInformation {
-  width: 530px;
+  width: 550px;
+  margin-left: 80px;
+  margin-right: 15px;
+
+  @media (max-width: 890px) {
+    width: 80%;
+    margin-left: 35px;
+    margin-right: 45px;
+  }
+
 
   p {
     color: #00000080;
@@ -16,7 +25,13 @@
     border: 1px solid #e4e4e4;
     border-radius: 5px;
     opacity: 1;
-    padding-left: 5px;
+    padding-left: 25px;
+
+    img {
+      position: absolute;
+      left: 8px;
+      top: 9px
+    }
   }
 
   .avatar {
@@ -51,29 +66,67 @@
     z-index: 9;
   }
 
-  .numeroPersonas{
+  .numeroPersonas {
     .ant-radio-group {
       width: 100%;
       display: flex;
       justify-content: space-between;
+
       .ant-radio-button-wrapper {
         width: 85px;
         height: 46px;
         border-radius: 5px;
         text-align: center;
         padding-top: 5px;
-      }
-    }
-  }
-  
-  .colorTema{
-    .ant-radio-group{
-      .ant-radio-button-wrapper{
-        .ant-radio-button{
+        border: 1px solid #E4E4E4;
 
+        &::before {
+          content: none;
         }
+
       }
+
+      .ant-radio-button-checked {
+        border-radius: 5px;
+      }
+
+
     }
   }
 
+
+
+  .ant-form-item {
+    margin-bottom: 0px;
+  }
+
+}
+
+.btn-guardar {
+  width: 159px;
+  height: 45px;
+  background: #48B5FE;
+  border-radius: 5px;
+  opacity: 1;
+}
+
+.btn-descartar {
+  width: 112px;
+  height: 45px;
+  color: black;
+  border: 1px solid var(--unnamed-color-e4e4e4);
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  border: 1px solid #E4E4E4;
+  border-radius: 5px;
+  opacity: 1;
+
+  &:active {
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    color: black;
+  }
+
+  &:hover {
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    color: black;
+  }
 }

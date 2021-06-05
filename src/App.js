@@ -3,7 +3,7 @@ import { VisualComponent } from "./components/VisualComponent/VisualComponent";
 
 const App = () => {
   return (
-    <div className="h-screen flex justify-between">
+    <div className="h-screen flex justify-between flex-wrap">
       <CollectInformation/>
       <VisualComponent/>
     </div>

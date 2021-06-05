@@ -1,133 +1,54 @@
-import React, { useRef, useState } from "react";
-import { Form, Input, Button, Radio, Upload, message } from "antd";
+import React from "react";
+import { Form, Input, Button, Radio, message } from "antd";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import "antd/dist/antd.css";
-import Avatar from "antd/lib/avatar/avatar";
 import { Content } from "antd/lib/layout/layout";
-import { UploadOutlined } from "@ant-design/icons";
 import "./CollectInformation.scss";
+import { ItemAvatar } from "./ItemAvatar/ItemAvatar";
+import { ItemColorSpace } from "./ItemColorSpace/ItemColorSpace";
 
 export const CollectInformation = () => {
   const [form] = Form.useForm();
-  const [requiredMark, setRequiredMarkType] = useState("optional");
 
-  const uploadedImage = useRef(null);
-  const imageUploader = useRef(null);
-
-  const [avatar, setAvatar] = useState();
-
-  const onRequiredTypeChange = ({ requiredMarkValue }) => {
-    setRequiredMarkType(requiredMarkValue);
-  };
-
-  const props = {
-    name: "file",
-    action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
-    headers: {
-      authorization: "authorization-text",
-    },
-    onChange: (info) => {
-      if (info.file.status !== "uploading") {
-        // console.log(info.file, info.fileList);
-      }
-      if (info.file.status === "done") {
-        const file = info.file.originFileObj;
-        if (file) {
-          const reader = new FileReader();
-          const { current } = uploadedImage;
-          current.file = file;
-          reader.onload = (e) => {
-            current.src = e.target.result;
-          };
-          reader.readAsDataURL(file);
-          // reader.onprogress = (e) => {
-          //   console.log(e.total, e.loaded);
-          // };
-        }
-        message.success(`${info.file.name} file uploaded successfully`);
-      } else if (info.file.status === "error") {
-        message.error(`${info.file.name} file upload failed.`);
-      }
-    },
-    beforeUpload: (file) => {
-      console.log(file);
-      if (file.type !== "image/png") {
-        message.error(`${file.name} is not a png file`);
-      }
-      return file.type === "image/png" ? true : Upload.LIST_IGNORE;
-    },
-    previewFile(file) {
-      console.log('Your upload file:', file);
-      return fetch('https://next.json-generator.com/api/json/get/4ytyBoLK8', {
-        method: 'POST',
-        body: file,
-      })
-      .then(res => res.json())
-      .then(({ thumbnail }) =>console(thumbnail))
-      .then(({ thumbnail }) => setAvatar(thumbnail));
-    },
+  const onCheck = async () => {
+    try {
+      const values = await form.validateFields();
+      console.log("Success:", values);
+      message
+        .loading('Action in progress..', 2.5)
+        .then(() => message.success('Loading finished', 2.5))
+        .then(() => message.info('Puede ver los datos en consola, presione la tecla F12!', 2.5));
+    } catch (errorInfo) {
+      console.log("Failed:", errorInfo);
+    }
   };
 
   return (
-    <div className="contentCollectInformation flex ml-24 flex-col mt-10">
+    <div className="contentCollectInformation flex flex-col mt-10">
       <div>
         <h1 className="font-bold text-lg">Configuración</h1>
-        <Form
-          form={form}
-          layout="vertical"
-          initialValues={{
-            requiredMarkValue: requiredMark,
-          }}
-          onValuesChange={onRequiredTypeChange}
-          requiredMark={requiredMark}
-          encType="multipart/form-data"
-        >
-          <div>
-            <label className="font-bold">Logo del espacio</label>
-            <Content className="mt-2">
-              <Avatar
-                icon={!avatar ? "" : <img src={avatar} ref={uploadedImage} />}
-                style={{ fontSize: 35 }}
-                className="avatar"
-                size="large"
-              >
-                B
-              </Avatar>
-              <Upload
-                accept="image/*"
-                {...props}
-                className="ml-3"
-                ref={imageUploader}
-              >
-                <Button className="btn-upload-image" icon={<UploadOutlined />}>
-                  Subir logo
-                </Button>
-              </Upload>
-            </Content>
-            <Content className="flex">
-              <div className="mr-2 mt-0">
-                <ExclamationCircleOutlined />
-              </div>
-              <div>
-                <p className="mb-0 mt-1">
-                  Este logo identificará tu espacio entre el resto.
-                </p>
-                <p>
-                  Preferiblemente sube una imagen .png igual o superior a 65px a
-                  72ppp con fondo transparente.
-                </p>
-              </div>
-            </Content>
-          </div>
+        <Form form={form} layout="vertical" encType="multipart/form-data">
+          <ItemAvatar />
 
-          <Form.Item label="Nombre del espacio" required>
+          <Form.Item
+            label="Nombre del espacio"
+            className="font-bold"
+            name={["name_web_space", "name"]}
+          >
             <Input placeholder="Ep: Mi espacio de trabajo" />
           </Form.Item>
 
-          <Form.Item label="URL del espacio (dirección web)" required>
-            <Input placeholder="Ep: mi.dominio" addonAfter=".dofleini.com" />
+          <Form.Item
+            label="URL del espacio (dirección web)"
+            name={["url_web_space", "url"]}
+            className="font-bold"
+          >
+            <Input
+              name="urlWeb"
+              placeholder="Ep: mi.dominio"
+              addonAfter=".dofleini.com"
+            />
           </Form.Item>
-
           <Content className="flex">
             <div className="mr-2 mt-0">
               <ExclamationCircleOutlined />
@@ -148,20 +69,26 @@ export const CollectInformation = () => {
             </div>
           </Content>
 
-          <div className="numeroPersonas">
-            <h4 className="font-bold">
-              ¿Cuántas personas trabajarán contigo, incluyéndote a ti?
-            </h4>
-            <Radio.Group defaultValue="a">
-              <Radio.Button value="a">Sólo yo</Radio.Button>
-              <Radio.Button value="b">2-10</Radio.Button>
-              <Radio.Button value="c">11-25</Radio.Button>
-              <Radio.Button value="d">26-50</Radio.Button>
-              <Radio.Button value="e">51-100</Radio.Button>
-              <Radio.Button value="f">500+</Radio.Button>
-            </Radio.Group>
-          </div>
-
+          <Form.Item
+            label="¿Cuántas personas trabajarán contigo, incluyéndote a ti?"
+            name={["cant_personas", "cant"]}
+            className="font-bold"
+          >
+            <div className="numeroPersonas">
+              <Radio.Group
+                defaultValue="a"
+                name="cantPersonas"
+                className="d-flex flex-wrap"
+              >
+                <Radio.Button value="yo">Sólo yo</Radio.Button>
+                <Radio.Button value="2-10">2-10</Radio.Button>
+                <Radio.Button value="11-15">11-25</Radio.Button>
+                <Radio.Button value="26-50">26-50</Radio.Button>
+                <Radio.Button value="51-100">51-100</Radio.Button>
+                <Radio.Button value="500+">500+</Radio.Button>
+              </Radio.Group>
+            </div>
+          </Form.Item>
           <Content className="flex">
             <div className="mr-2 mt-0">
               <ExclamationCircleOutlined />
@@ -177,24 +104,19 @@ export const CollectInformation = () => {
             </div>
           </Content>
 
-          <div className="colorTema">
-            <h4 className="font-bold mt-2">Color del tema</h4>
-            <Radio.Group defaultValue="j">
-              <Radio.Button value="a"></Radio.Button>
-              <Radio.Button value="b"></Radio.Button>
-              <Radio.Button value="c"></Radio.Button>
-              <Radio.Button value="d"></Radio.Button>
-              <Radio.Button value="e"></Radio.Button>
-              <Radio.Button value="f"></Radio.Button>
-              <Radio.Button value="g"></Radio.Button>
-              <Radio.Button value="h"></Radio.Button>
-              <Radio.Button value="i"></Radio.Button>
-              <Radio.Button value="j"></Radio.Button>
-            </Radio.Group>
-          </div>
+          <ItemColorSpace />
 
           <Form.Item>
-            <Button type="primary">Submit</Button>
+            <Button
+              type="primary"
+              onClick={onCheck}
+              className="mr-5 btn-guardar"
+            >
+              Guardar cambios
+            </Button>
+            <Button type="primary" onClick={onCheck} className="btn-descartar">
+              Descartar
+            </Button>
           </Form.Item>
         </Form>
       </div>

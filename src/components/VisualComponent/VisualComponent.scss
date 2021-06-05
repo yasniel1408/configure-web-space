@@ -1,0 +1,7 @@
+.visualComponent{
+    visibility: visible;
+
+    @media (max-width: 890px) {
+        visibility: hidden;
+    }
+}

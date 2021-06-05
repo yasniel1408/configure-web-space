@@ -1,0 +1,101 @@
+.colorTema {
+    .ant-radio-group {
+        .colorRadio {
+            width: 45px;
+            height: 45px;
+            border-radius: 50px;
+            margin: 5px;
+            // border: 1px solid red;
+            // background: red;
+
+            // border: none;
+            &::before {
+                content: none;
+            }
+
+        }
+
+        .ant-radio-button-checked {
+            top: 5.6px;
+            left: 5.8px;
+            width: 31px;
+            height: 31px;
+            border-radius: 50%;
+
+        }
+
+        .blueColor {
+            border: 1px solid #39B0FF;
+            .ant-radio-button-checked {
+                background: #39B0FF;
+            }
+        }
+
+        .greenColor {
+            border: 1px solid #04B58B;
+            .ant-radio-button-checked {
+                background: #04B58B;
+            }
+        }
+
+        .lemonColor {
+            border: 1px solid #3E9C4B;
+            .ant-radio-button-checked {
+                background: #3E9C4B;
+            }
+        }
+
+        .yelowColor {
+            border: 1px solid #B6BC00;
+            .ant-radio-button-checked {
+                background: #B6BC00;
+            }
+        }
+
+        .lightOrangeColor {
+            border: 1px solid #E59100;
+            .ant-radio-button-checked {
+                background: #E59100;
+            }
+        }
+
+        .orangeColor {
+            border: 1px solid #E55C00;
+            .ant-radio-button-checked {
+                background: #E55C00;
+            }
+        }
+
+        .redColor {
+            border: 1px solid #EE1F50;
+            .ant-radio-button-checked {
+                background: #EE1F50;
+            }
+        }
+
+        .pinkColor {
+            border: 1px solid #D6198A;
+            .ant-radio-button-checked {
+                background: #D6198A;
+            }
+        }
+
+        .purpleColor {
+            border: 1px solid #D6198A;
+            .ant-radio-button-checked {
+                background: #D6198A;
+            }
+        }
+
+        .cieloColor {
+            border: 1px solid #48B5FE;
+            .ant-radio-button-checked {
+                background: #39B0FF;
+            }
+        }
+
+        .blancoColor {
+            background: #ffffff !important;
+        }
+    }
+}
