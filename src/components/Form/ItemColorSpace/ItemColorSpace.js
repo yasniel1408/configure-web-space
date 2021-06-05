@@ -16,6 +16,7 @@ export const ItemColorSpace = () => {
 
   useEffect(() => {
     restablecerColor();
+    setCieloColor("#ffffff")
   }, []);
 
   const restablecerColor = () => {
@@ -80,10 +81,11 @@ export const ItemColorSpace = () => {
         label="Color del tema"
         name={["color_tema", "color"]}
         className="font-bold"
+        initialValue="cieloColor"
       >
         <div className="colorTema">
           <Radio.Group
-        //   defaultValue="a"
+            defaultValue="cieloColor"
           >
             <Radio.Button
               className="colorRadio blueColor"
