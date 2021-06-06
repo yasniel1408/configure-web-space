@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Input, Button, Radio, message, Popconfirm } from "antd";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import "antd/dist/antd.css";
@@ -10,7 +10,6 @@ import { ItemPrivacity } from "./ItemPrivacity/ItemPrivacity";
 
 export const CollectInformation = ({ setFormData }) => {
   const [form] = Form.useForm();
-
 
   const [visible, setVisible] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
@@ -36,7 +35,7 @@ export const CollectInformation = ({ setFormData }) => {
   const onChangeForm = async () => {
     try {
       const values = await form.getFieldsValue();
-      // console.log(values)
+      console.log(values);
       setFormData(values);
     } catch (errorInfo) {
       console.log("Failed:", errorInfo);
@@ -45,6 +44,14 @@ export const CollectInformation = ({ setFormData }) => {
 
   const onDiscard = () => {
     form.resetFields();
+    setFormData({
+      cant_personas: { cant: "yo" },
+      color_tema: { color: "cieloColor" },
+      logo_space: { src: undefined },
+      name_web_space: { name: undefined },
+      privacity_space: { privacity: "privado" },
+      url_web_space: { url: undefined },
+    });
   };
 
   const handleOk = () => {
@@ -66,7 +73,7 @@ export const CollectInformation = ({ setFormData }) => {
           onChange={onChangeForm}
           encType="multipart/form-data"
         >
-          <ItemAvatar/>
+          <ItemAvatar />
 
           <Form.Item
             label="Nombre del espacio"

@@ -6,10 +6,10 @@ import { Content } from "antd/lib/layout/layout";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 
 export const ItemAvatar = () => {
+  
   const uploadedImage = useRef(null);
   const [logoSrc, setLogoSrc] = useState("");
 
-  
   const dummyRequest = ({ file }) => {
     message.success(`La foto ${file.name} fue subida correctamente!`);
     setLogoSrc(file);
@@ -23,6 +23,7 @@ export const ItemAvatar = () => {
   };
 
   const beforeUpload = (file) => {
+    // console.log(file);
     if (
       file.type !== "image/png" &&
       file.type !== "image/jpg" &&

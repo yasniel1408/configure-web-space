@@ -7,6 +7,24 @@
         visibility: hidden;
     }
 
+    .logoDefault {
+        position: absolute;
+        right: 557px;
+        top: 284px;
+        border-radius: 50%;
+    }
+
+    .icoDefault {
+        position: absolute;
+        right: 552px;
+        top: 212px;
+        background-color: rgb(202, 202, 202);
+        border-radius: 50%;
+        img {
+            border-radius: 50%;
+            object-fit: cover;
+        }
+    }
 
     svg {
 

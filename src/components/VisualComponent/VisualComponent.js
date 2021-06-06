@@ -1,10 +1,38 @@
-import { Avatar } from "antd";
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./VisualComponent.scss";
+import logoDefautl from "../../img/defaultLogo.svg";
+import icoDefautl from "../../img/icoDefault.svg";
 
-export const VisualComponent = ({ formData, logoSrc, uploadedImage }) => {
+export const VisualComponent = ({ formData }) => {
+  const uploadedImage = useRef(null);
+  const uploadedImage2 = useRef(null);
+  const [file, setFile] = useState()
+
+  useEffect(() => {
+    setFile(formData.logo_space.src !== undefined ? formData.logo_space.src.file.originFileObj : null)
+    if(file){
+      showImage({uploadedImage, file})
+      showImage({uploadedImage: uploadedImage2, file})
+    }
+  }, [formData])
+
+  const showImage = ({uploadedImage, file}) => {
+    const reader = new FileReader();
+    const { current } = uploadedImage;
+    current.file = file;
+    reader.onload = (e) => {
+      current.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
   return (
+    <>
     <div className="h-screen flex items-center visualComponent">
+    <img src={logoDefautl} ref={uploadedImage} width={28} alt={"logoDefault"} className="logoDefault"/>
+    <div className="icoDefault">
+      <img src={icoDefautl} ref={uploadedImage2} width={19} alt={"logoDefault"} className=""/>
+    </div>
       <svg width="807" height="598" viewBox="0 0 807 598">
         <defs>
           <clipPath id="a">
@@ -584,47 +612,7 @@ export const VisualComponent = ({ formData, logoSrc, uploadedImage }) => {
                   transform="translate(7 90)"
                 />
                 <g transform="translate(14 14.941)">
-                  {uploadedImage ? (
-                    <img src={uploadedImage} width={100} height={100} className="border-r-8" alt="Logo" />
-                  ) : (
-                    <>
-                      <rect
-                        className="aa"
-                        width="21.244"
-                        height="4.641"
-                        rx="2.32"
-                        transform="translate(0 13.922)"
-                      />
-                      <rect
-                        className="aa"
-                        width="16.227"
-                        height="4.641"
-                        rx="2.32"
-                        transform="translate(5.009)"
-                      />
-                      <rect
-                        className="aa"
-                        width="12.754"
-                        height="4.641"
-                        rx="2.32"
-                        transform="translate(13.122 6.961)"
-                      />
-                      <rect
-                        className="aa"
-                        width="9.281"
-                        height="4.641"
-                        rx="2.32"
-                        transform="translate(0 6.961)"
-                      />
-                      <rect
-                        className="aa"
-                        width="9.281"
-                        height="4.641"
-                        rx="2.32"
-                        transform="translate(0 20.922)"
-                      />
-                    </>
-                  )}
+                    
                 </g>
                 <g transform="translate(12.827)">
                   <circle
@@ -814,5 +802,6 @@ export const VisualComponent = ({ formData, logoSrc, uploadedImage }) => {
         </g>
       </svg>
     </div>
+    </>
   );
 };
