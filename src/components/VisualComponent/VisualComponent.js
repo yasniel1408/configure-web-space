@@ -10,7 +10,9 @@ export const VisualComponent = ({ formData }) => {
 
   useEffect(() => {
     setFile(
-      formData.logo_space.src !== undefined ? formData.logo_space.src : null
+      formData.logo_space.src !== undefined
+        ? formData.logo_space.src.file.originFileObj
+        : null
     );
     if (file) {
       showImage({ uploadedImage, file });
@@ -34,20 +36,16 @@ export const VisualComponent = ({ formData }) => {
         <img
           src={logoDefautl}
           ref={uploadedImage}
-          width={28}
           alt={"logoDefault"}
           className="logoDefault"
         />
-        <div className="icoDefault">
-          <img
-            src={icoDefautl}
-            ref={uploadedImage2}
-            width={21}
-            alt={"logoDefault"}
-            className=""
-          />
-        </div>
-        <svg viewBox="0 0 807 598">
+        <img
+          src={icoDefautl}
+          ref={uploadedImage2}
+          alt={"logoDefault"}
+          className="icoDefault"
+        />
+        <svg width="807" height="598" viewBox="0 0 807 598">
           <defs>
             <clipPath id="a">
               <rect
@@ -613,87 +611,57 @@ export const VisualComponent = ({ formData }) => {
                   transform="translate(0.182 10.097)"
                 />
               </g>
-              <g class="y">
+              <g className="y">
                 <g transform="translate(3689 716)">
-                  <g class="b">
-                    <rect class="af" width="49" height="378" />
-                    <rect class="ac" x="0.5" y="0.5" width="48" height="377" />
+                  <g className="b">
+                    <rect className="af" width="49" height="378" />
+                    <rect
+                      className="ac"
+                      x="0.5"
+                      y="0.5"
+                      width="48"
+                      height="377"
+                    />
                   </g>
                   <rect
-                    class="z"
+                    className={`${formData.color_tema.color} opacity-10`}
                     width="34"
                     height="37"
                     rx="3"
                     transform="translate(7 90)"
                   />
-                  {/* <g transform="translate(14 14.941)" >
-                    <rect
-                      class="aa"
-                      width="21.244"
-                      height="4.641"
-                      rx="2.32"
-                      transform="translate(0 13.922)"
-                    />
-                    <rect
-                      class="aa"
-                      width="16.227"
-                      height="4.641"
-                      rx="2.32"
-                      transform="translate(5.009)"
-                    />
-                    <rect
-                      class="aa"
-                      width="12.754"
-                      height="4.641"
-                      rx="2.32"
-                      transform="translate(13.122 6.961)"
-                    />
-                    <rect
-                      class="aa"
-                      width="9.281"
-                      height="4.641"
-                      rx="2.32"
-                      transform="translate(0 6.961)"
-                    />
-                    <rect
-                      class="aa"
-                      width="9.281"
-                      height="4.641"
-                      rx="2.32"
-                      transform="translate(0 20.922)"
-                    />
-                  </g> */}
+                  <g transform="translate(14 14.941)"></g>
                   <g transform="translate(12.827)">
                     <circle
-                      class="aa"
+                      className="aa"
                       cx="11.5"
                       cy="11.5"
                       r="11.5"
                       transform="translate(0.173 205)"
                     />
                     <circle
-                      class="aa"
+                      className="aa"
                       cx="11.5"
                       cy="11.5"
                       r="11.5"
                       transform="translate(0.173 169)"
                     />
                     <circle
-                      class="aa"
+                      className="aa"
                       cx="11.5"
                       cy="11.5"
                       r="11.5"
                       transform="translate(0.173 133)"
                     />
                     <circle
-                      class="s"
+                      className={formData.color_tema.color}
                       cx="11.5"
                       cy="11.5"
                       r="11.5"
                       transform="translate(0.173 97)"
                     />
                     <circle
-                      class="aa"
+                      className="aa"
                       cx="11.5"
                       cy="11.5"
                       r="11.5"
@@ -702,26 +670,101 @@ export const VisualComponent = ({ formData }) => {
                   </g>
                 </g>
                 <g transform="translate(3737 716)">
-                  <g class="b">
-                    <rect class="af" width="589" height="56" />
-                    <rect class="ac" x="0.5" y="0.5" width="588" height="55" />
+                  <g className="b">
+                    <rect className="af" width="589" height="56" />
+                    <rect
+                      className="ac"
+                      x="0.5"
+                      y="0.5"
+                      width="588"
+                      height="55"
+                    />
                   </g>
                   <rect
-                    class="s"
+                    className={formData.color_tema.color}
                     width="119"
                     height="32"
                     rx="16"
                     transform="translate(409 12)"
                   />
-                  <g transform="translate(235.443 19.562)">
-                    <path
-                      class="ab"
-                      d="M255.65,4329.04a1,1,0,0,1,.56,1.75l-3.67,3.18,1.1,4.73a1,1,0,0,1-1.49,1.08l-4.15-2.51-4.15,2.5a1,1,0,0,1-1.49-1.08l1.1-4.72-3.67-3.18a1,1,0,0,1,.57-1.75l4.83-.41,1.89-4.459a1,1,0,0,1,1.84,0l1.89,4.45,4.84.42Z"
-                      transform="translate(-239.443 -4323.562)"
-                    />
-                  </g>
+                  {formData.cant_personas.cant ? (
+                    <g transform="translate(235.443 19.562)">
+                      <path
+                        className="ab"
+                        d="M255.65,4329.04a1,1,0,0,1,.56,1.75l-3.67,3.18,1.1,4.73a1,1,0,0,1-1.49,1.08l-4.15-2.51-4.15,2.5a1,1,0,0,1-1.49-1.08l1.1-4.72-3.67-3.18a1,1,0,0,1,.57-1.75l4.83-.41,1.89-4.459a1,1,0,0,1,1.84,0l1.89,4.45,4.84.42Z"
+                        transform="translate(-239.443 -4323.562)"
+                      />
+                    </g>
+                  ) : (
+                    ""
+                  )}
+                  {formData.cant_personas.cant !== "yo" ? (
+                    <g transform="translate(253.443 19.562)">
+                      <path
+                        className="ab"
+                        d="M255.65,4329.04a1,1,0,0,1,.56,1.75l-3.67,3.18,1.1,4.73a1,1,0,0,1-1.49,1.08l-4.15-2.51-4.15,2.5a1,1,0,0,1-1.49-1.08l1.1-4.72-3.67-3.18a1,1,0,0,1,.57-1.75l4.83-.41,1.89-4.459a1,1,0,0,1,1.84,0l1.89,4.45,4.84.42Z"
+                        transform="translate(-239.443 -4323.562)"
+                      />
+                    </g>
+                  ) : (
+                    ""
+                  )}
+                  {formData.cant_personas.cant !== "yo" &&
+                  formData.cant_personas.cant !== "2-10" ? (
+                    <g transform="translate(272.443 19.562)">
+                      <path
+                        className="ab"
+                        d="M255.65,4329.04a1,1,0,0,1,.56,1.75l-3.67,3.18,1.1,4.73a1,1,0,0,1-1.49,1.08l-4.15-2.51-4.15,2.5a1,1,0,0,1-1.49-1.08l1.1-4.72-3.67-3.18a1,1,0,0,1,.57-1.75l4.83-.41,1.89-4.459a1,1,0,0,1,1.84,0l1.89,4.45,4.84.42Z"
+                        transform="translate(-239.443 -4323.562)"
+                      />
+                    </g>
+                  ) : (
+                    ""
+                  )}
+                  {formData.cant_personas.cant !== "yo" &&
+                  formData.cant_personas.cant !== "2-10" &&
+                  formData.cant_personas.cant !== "11-25" ? (
+                    <g transform="translate(290.443 19.562)">
+                      <path
+                        className="ab"
+                        d="M255.65,4329.04a1,1,0,0,1,.56,1.75l-3.67,3.18,1.1,4.73a1,1,0,0,1-1.49,1.08l-4.15-2.51-4.15,2.5a1,1,0,0,1-1.49-1.08l1.1-4.72-3.67-3.18a1,1,0,0,1,.57-1.75l4.83-.41,1.89-4.459a1,1,0,0,1,1.84,0l1.89,4.45,4.84.42Z"
+                        transform="translate(-239.443 -4323.562)"
+                      />
+                    </g>
+                  ) : (
+                    ""
+                  )}
+                  {formData.cant_personas.cant !== "yo" &&
+                  formData.cant_personas.cant !== "2-10" &&
+                  formData.cant_personas.cant !== "11-25" &&
+                  formData.cant_personas.cant !== "26-50" ? (
+                    <g transform="translate(308.443 19.562)">
+                      <path
+                        className="ab"
+                        d="M255.65,4329.04a1,1,0,0,1,.56,1.75l-3.67,3.18,1.1,4.73a1,1,0,0,1-1.49,1.08l-4.15-2.51-4.15,2.5a1,1,0,0,1-1.49-1.08l1.1-4.72-3.67-3.18a1,1,0,0,1,.57-1.75l4.83-.41,1.89-4.459a1,1,0,0,1,1.84,0l1.89,4.45,4.84.42Z"
+                        transform="translate(-239.443 -4323.562)"
+                      />
+                    </g>
+                  ) : (
+                    ""
+                  )}
+                  {formData.cant_personas.cant !== "yo" &&
+                  formData.cant_personas.cant !== "2-10" &&
+                  formData.cant_personas.cant !== "11-25" &&
+                  formData.cant_personas.cant !== "26-50" &&
+                  formData.cant_personas.cant !== "51-100" ? (
+                    <g transform="translate(326.443 19.562)">
+                      <path
+                        className="ab"
+                        d="M255.65,4329.04a1,1,0,0,1,.56,1.75l-3.67,3.18,1.1,4.73a1,1,0,0,1-1.49,1.08l-4.15-2.51-4.15,2.5a1,1,0,0,1-1.49-1.08l1.1-4.72-3.67-3.18a1,1,0,0,1,.57-1.75l4.83-.41,1.89-4.459a1,1,0,0,1,1.84,0l1.89,4.45,4.84.42Z"
+                        transform="translate(-239.443 -4323.562)"
+                      />
+                    </g>
+                  ) : (
+                    ""
+                  )}
                   <rect
-                    class="r"
+                    className="r"
                     width="211"
                     height="21"
                     rx="10.5"
@@ -729,7 +772,6 @@ export const VisualComponent = ({ formData }) => {
                   />
                 </g>
               </g>
-
               <g transform="translate(3740 693)">
                 <path className="ac" d="M0,0H14.931V14.931H0Z" />
                 <path

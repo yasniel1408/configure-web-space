@@ -8,6 +8,7 @@ import { ExclamationCircleOutlined } from "@ant-design/icons";
 export const ItemAvatar = ({ setFormData, formData }) => {
   const uploadedImage = useRef(null);
   const [logoSrc, setLogoSrc] = useState("");
+  const [fileList] = useState([])
 
   const dummyRequest = ({ file }) => {
     message.success(`La foto ${file.name} fue subida correctamente!`);
@@ -42,7 +43,7 @@ export const ItemAvatar = ({ setFormData, formData }) => {
 
     setFormData({
       ...formData,
-      logo_space: { src: file },
+      logo_space: { src: { file: { originFileObj: file } } },
     });
 
     return true;
@@ -83,10 +84,10 @@ export const ItemAvatar = ({ setFormData, formData }) => {
           ]}
         >
           <Upload
-            progress
             showUploadList={false}
             accept={"image/*"}
             multiple={false}
+            fileList={fileList}
             beforeUpload={beforeUpload}
             customRequest={(f) => dummyRequest(f)}
             className="ml-3"

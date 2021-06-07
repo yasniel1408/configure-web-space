@@ -16,19 +16,21 @@
         right: 557px;
         top: 170px;
         border-radius: 50%;
+        object-fit: cover;
+        width: 28px;
+        height: 28px;
     }
 
     .icoDefault {
+        width: 21px;
+        height: 21px;
         position: absolute;
-        right: 545px;
-        top: 90px;
+        right: 549px;
+        top: 93px;
         border-radius: 50%;
-        padding: 3.5px;
-
-        img {
-            border-radius: 50%;
-            background-color: rgba(206, 206, 206, 0.692);
-        }
+        border-radius: 50%;
+        background-color: rgba(206, 206, 206, 0.692);
+        object-fit: cover;
     }
 
     svg {

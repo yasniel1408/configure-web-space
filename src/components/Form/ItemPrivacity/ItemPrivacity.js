@@ -9,7 +9,7 @@ export const ItemPrivacity = () => {
         label="Privacidad del espacio"
         name={["privacity_space", "privacity"]}
         className="font-bold privacityRadioGroup"
-        initialValue={"privado"}
+        // initialValue={"privado"}
       >
         <Radio.Group
           defaultValue={"privado"}
