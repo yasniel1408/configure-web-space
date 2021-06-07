@@ -549,7 +549,7 @@ export const VisualComponent = ({ formData }) => {
               <text className="w" transform="translate(3892.538 705.215)">
                 <tspan x="0" y="0" style={{ fontFamily: "sans-serif" }}>
                   {formData.url_web_space.url
-                    ? formData.url_web_space.url.replace(/ /g, "") +
+                    ? formData.url_web_space.url.replace(/ /g, "").toLowerCase() +
                       ".dofleini.com"
                     : "mi_dominio.plankton.com/proyectos/plan_de_ventas"}
                 </tspan>

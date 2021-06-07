@@ -11,7 +11,7 @@ export const ItemCantPerson = () => {
         label="¿Cuántas personas trabajarán contigo, incluyéndote a ti?"
         name={["cant_personas", "cant"]}
         className="font-bold"
-        // initialValue="yo"
+        initialValue="yo"
       >
         <div className="numeroPersonas">
           <Radio.Group
