@@ -1,6 +1,9 @@
 .visualComponent {
     visibility: visible;
     position: fixed;
+    width: 807px;
+    height: 598px;
+    top: 6vh;
     right: 0;
 
     @media (max-width: 1290px) {
@@ -9,19 +12,22 @@
 
     .logoDefault {
         position: absolute;
+        z-index: 99;
         right: 557px;
-        top: 284px;
+        top: 170px;
         border-radius: 50%;
     }
 
     .icoDefault {
         position: absolute;
-        right: 552px;
-        top: 212px;
-        background-color: rgba(206, 206, 206, 0.692);
+        right: 545px;
+        top: 90px;
         border-radius: 50%;
+        padding: 3.5px;
+
         img {
             border-radius: 50%;
+            background-color: rgba(206, 206, 206, 0.692);
         }
     }
 
