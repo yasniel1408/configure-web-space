@@ -1,14 +1,38 @@
 .contentCollectInformation {
-  width: 550px;
+  width: 100%;
   margin-left: 80px;
-  margin-right: 15px;
   padding-bottom: 70px;
   z-index: 9;
+  display: flex;
+  justify-content: left;
+  align-items: flex-start;
+
+  .formCollectInformation {
+    width: 550px;
+
+    @media (max-width: 1290px) {
+      width: 750px !important;
+    }
+
+    @media (max-width: 890px) {
+      width: 100% !important;
+    }
+  }
+
+  @media (max-width: 1290px) {
+    margin-left: 0px;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .formCollectInformation {
+      width: 550px;
+    }
+  }
 
   @media (max-width: 890px) {
-    width: 80%;
-    margin-left: 35px;
-    margin-right: 45px;
+    margin-left: 0px;
+    padding: 0 20px 0 20px;
   }
 
   .ant-form-item-required {
@@ -80,13 +104,13 @@
       justify-content: space-between;
 
       .ant-radio-button-wrapper {
-        width: 85px;
-        height: 46px;
+        min-width: 85px;
+        min-height: 46px;
         border-radius: 5px;
         text-align: center;
         padding-top: 5px;
         border: 1px solid #E4E4E4;
-
+        margin-bottom: 7px;
         &::before {
           content: none;
         }
@@ -137,5 +161,5 @@
     color: black;
   }
 
- 
+
 }

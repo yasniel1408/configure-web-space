@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { Form, Input, Button, Radio, message, Popconfirm } from "antd";
-import { ExclamationCircleOutlined } from "@ant-design/icons";
+import React, { useState } from "react";
+import { Form, Button, message, Popconfirm } from "antd";
 import "antd/dist/antd.css";
 import { Content } from "antd/lib/layout/layout";
 import "./CollectInformation.scss";
 import { ItemAvatar } from "./ItemAvatar/ItemAvatar";
 import { ItemColorSpace } from "./ItemColorSpace/ItemColorSpace";
 import { ItemPrivacity } from "./ItemPrivacity/ItemPrivacity";
+import { ItemCantPerson } from "./ItemCantPerson/ItemCantPerson";
+import { ItemUrlSpace } from "./ItemUrlSpace/ItemUrlSpace";
+import { ItemNameSpace } from "./ItemNameSpace/ItemNameSpace";
 
-export const CollectInformation = ({ setFormData }) => {
+export const CollectInformation = ({ setFormData, formData }) => {
   const [form] = Form.useForm();
 
   const [visible, setVisible] = useState(false);
@@ -19,8 +21,8 @@ export const CollectInformation = ({ setFormData }) => {
       const values = await form.validateFields();
       console.log("Success:", values);
       message
-        .loading("Action in progress..", 1.5)
-        .then(() => message.success("Loading finished", 1.5))
+        .loading("Enviando...", 1.5)
+        .then(() => message.success("Cambios guardados!!!", 1.5))
         .then(() =>
           message.info(
             "Puede ver los datos en consola, presione la tecla F12!",
@@ -28,17 +30,17 @@ export const CollectInformation = ({ setFormData }) => {
           )
         );
     } catch (errorInfo) {
-      console.log("Failed:", errorInfo);
+      // console.log("Failed:", errorInfo);
     }
   };
 
   const onChangeForm = async () => {
     try {
       const values = await form.getFieldsValue();
-      console.log(values);
+      // console.log(values);
       setFormData(values);
     } catch (errorInfo) {
-      console.log("Failed:", errorInfo);
+      // console.log("Failed:", errorInfo);
     }
   };
 
@@ -65,7 +67,7 @@ export const CollectInformation = ({ setFormData }) => {
 
   return (
     <div className="contentCollectInformation flex flex-col mt-10">
-      <div>
+      <div className="formCollectInformation">
         <h1 className="font-bold text-lg">Configuración</h1>
         <Form
           form={form}
@@ -73,94 +75,13 @@ export const CollectInformation = ({ setFormData }) => {
           onChange={onChangeForm}
           encType="multipart/form-data"
         >
-          <ItemAvatar />
+          <ItemAvatar setFormData={setFormData} formData={formData} />
 
-          <Form.Item
-            label="Nombre del espacio"
-            className="font-bold"
-            name={["name_web_space", "name"]}
-            rules={[
-              {
-                required: true,
-                message: "El nombre del espacio es requerido!",
-              },
-            ]}
-          >
-            <Input placeholder="Ep: Mi espacio de trabajo" />
-          </Form.Item>
+          <ItemNameSpace />
 
-          <Form.Item
-            label="URL del espacio (dirección web)"
-            name={["url_web_space", "url"]}
-            className="font-bold"
-            rules={[
-              {
-                required: true,
-                message: "La url del espacio es requerida!",
-              },
-            ]}
-          >
-            <Input
-              name="urlWeb"
-              placeholder="Ep: mi.dominio"
-              addonAfter=".dofleini.com"
-            />
-          </Form.Item>
-          <Content className="flex">
-            <div className="mr-2 mt-0">
-              <ExclamationCircleOutlined />
-            </div>
-            <div>
-              <p className="mb-0 mt-1">
-                Puedes cambiar la URL de tu espacio (dirección web) en cualquier
-                momento, pero por cortesía hacia tus compañeros de trabajo y
-                otros usuarios de Plankton, porfavor no lo hagas muy seguido :)
-              </p>
-              <p>
-                Nota: Si cambias la URL de tu espacio, Plankton automáticamente
-                redireccionará desde la antigua dirección hacia la nueva. En
-                cualquier caso, deberías asegurarte que tus compañeros sepan
-                acerca del cambio porque la dirección anterior pasará a estar
-                libre y puede ser usada por otro espacio en el futuro.
-              </p>
-            </div>
-          </Content>
+          <ItemUrlSpace />
 
-          <Form.Item
-            label="¿Cuántas personas trabajarán contigo, incluyéndote a ti?"
-            name={["cant_personas", "cant"]}
-            className="font-bold"
-            initialValue="yo"
-          >
-            <div className="numeroPersonas">
-              <Radio.Group
-                defaultValue="yo"
-                name="cantPersonas"
-                className="d-flex flex-wrap"
-              >
-                <Radio.Button value="yo">Sólo yo</Radio.Button>
-                <Radio.Button value="2-10">2-10</Radio.Button>
-                <Radio.Button value="11-25">11-25</Radio.Button>
-                <Radio.Button value="26-50">26-50</Radio.Button>
-                <Radio.Button value="51-100">51-100</Radio.Button>
-                <Radio.Button value="500+">500+</Radio.Button>
-              </Radio.Group>
-            </div>
-          </Form.Item>
-          <Content className="flex">
-            <div className="mr-2 mt-0">
-              <ExclamationCircleOutlined />
-            </div>
-            <div>
-              <p className="mb-0 mt-1">
-                Este logo identificará tu espacio entre el resto.
-              </p>
-              <p>
-                Preferiblemente sube una imagen .png igual o superior a 65px a
-                72ppp con fondo transparente.
-              </p>
-            </div>
-          </Content>
+          <ItemCantPerson />
 
           <ItemColorSpace />
 

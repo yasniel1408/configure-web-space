@@ -14,7 +14,7 @@ const App = () => {
 
   return (
     <div className="h-screen flex justify-between flex-wrap">
-      <CollectInformation setFormData={setFormData} />
+      <CollectInformation setFormData={setFormData}  formData={formData}/>
       <VisualComponent formData={formData} />
     </div>
   );

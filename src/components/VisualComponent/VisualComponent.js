@@ -9,7 +9,7 @@ export const VisualComponent = ({ formData }) => {
   const [file, setFile] = useState()
 
   useEffect(() => {
-    setFile(formData.logo_space.src !== undefined ? formData.logo_space.src.file.originFileObj : null)
+    setFile(formData.logo_space.src !== undefined ? formData.logo_space.src : null)
     if(file){
       showImage({uploadedImage, file})
       showImage({uploadedImage: uploadedImage2, file})
@@ -31,7 +31,7 @@ export const VisualComponent = ({ formData }) => {
     <div className="h-screen flex items-center visualComponent">
     <img src={logoDefautl} ref={uploadedImage} width={28} alt={"logoDefault"} className="logoDefault"/>
     <div className="icoDefault">
-      <img src={icoDefautl} ref={uploadedImage2} width={19} alt={"logoDefault"} className=""/>
+      <img src={icoDefautl} ref={uploadedImage2} width={13} alt={"logoDefault"} className=""/>
     </div>
       <svg width="807" height="598" viewBox="0 0 807 598">
         <defs>
@@ -262,7 +262,7 @@ export const VisualComponent = ({ formData }) => {
               </g>
               <g className="ai" transform="matrix(1, 0, 0, 1, 3507, 576)">
                 <rect
-                  className="o"
+                  className={`${formData.color_tema.color} opacity-20`}
                   width="573"
                   height="45"
                   transform="translate(276 367)"
@@ -285,31 +285,31 @@ export const VisualComponent = ({ formData }) => {
                 />
               </g>
               <rect
-                className="p"
+                className={`${formData.color_tema.color} opacity-10`}
                 width="177"
                 height="45"
                 transform="translate(4119 849)"
               />
               <rect
-                className="p"
+                className={`${formData.color_tema.color} opacity-10`}
                 width="177"
                 height="45"
                 transform="translate(4119 896)"
               />
               <rect
-                className="q"
+                className={`${formData.color_tema.color} opacity-20`}
                 width="177"
                 height="45"
                 transform="translate(4119 943)"
               />
               <rect
-                className="p"
+                className={`${formData.color_tema.color} opacity-10`}
                 width="177"
                 height="45"
                 transform="translate(4119 990)"
               />
               <rect
-                className="p"
+                className={`${formData.color_tema.color} opacity-10`}
                 width="177"
                 height="45"
                 transform="translate(4119 1037)"
@@ -529,14 +529,14 @@ export const VisualComponent = ({ formData }) => {
               </tspan>
             </text>
             <text className="w" transform="translate(3892.538 705.215)">
-              <tspan x="0" y="0">
+              <tspan x="0" y="0" style={{fontFamily: "sans-serif"}}>
                 {formData.url_web_space.url
-                  ? formData.url_web_space.url + ".dofleini.com"
+                  ? formData.url_web_space.url.replace(/ /g, "") + ".dofleini.com"
                   : "mi_dominio.plankton.com/proyectos/plan_de_ventas"}
               </tspan>
             </text>
             <text className="w" transform="translate(3742.538 673.215)">
-              <tspan x="0" y="0">
+              <tspan x="0" y="0" style={{fontFamily: "sans-serif"}}>
                 {formData.name_web_space.name
                   ? formData.name_web_space.name
                   : "Plankton - Mi Espacio"}
@@ -605,7 +605,7 @@ export const VisualComponent = ({ formData }) => {
                   />
                 </g>
                 <rect
-                  className="z"
+                  className={`${formData.color_tema.color} opacity-10`}
                   width="34"
                   height="37"
                   rx="3"

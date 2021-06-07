@@ -5,8 +5,7 @@ import uploadIcon from "../../../img/uploadIcon.svg";
 import { Content } from "antd/lib/layout/layout";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 
-export const ItemAvatar = () => {
-  
+export const ItemAvatar = ({ setFormData, formData }) => {
   const uploadedImage = useRef(null);
   const [logoSrc, setLogoSrc] = useState("");
 
@@ -40,6 +39,12 @@ export const ItemAvatar = () => {
       message.error("La imagen no puede ser mayor de 4MB!");
       return Upload.LIST_IGNORE;
     }
+
+    setFormData({
+      ...formData,
+      logo_space: { src: file },
+    });
+
     return true;
   };
 
